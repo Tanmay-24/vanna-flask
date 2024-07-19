@@ -109,8 +109,9 @@ def download_csv(id: str, df):
 @app.route('/api/v0/generate_plotly_figure', methods=['GET'])
 @requires_cache(['df', 'question', 'sql'])
 def generate_plotly_figure(id: str, df, question, sql):
+    #added more metadata for better graphs
     try:
-        code = vn.generate_plotly_code(question=question, sql=sql, df_metadata=f"Running df.dtypes gives:\n {df.dtypes}")
+        code = vn.generate_plotly_code(question=question, sql=sql, df_metadata=f"Running df.dtypes,df.head(5),df.shape gives:\n {df.dtypes},{df.head(5)},{df.shape}")
         fig = vn.get_plotly_figure(plotly_code=code, df=df, dark_mode=False)
         fig_json = fig.to_json()
 
